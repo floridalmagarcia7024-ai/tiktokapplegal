@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="tiktok-developers-site-verification" content="84LXpiakvM2YvX75P1PThK6IS0bKxz2D">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClipFlow Studio - Creator Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        body { background: #050507; color: #fff; }
+        .gradient-text {
+            background: linear-gradient(135deg, #EE1D52, #69C9D0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-text-hero {
+            background: linear-gradient(135deg, #EE1D52 0%, #f43f5e 40%, #69C9D0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-btn {
+            background: linear-gradient(135deg, #EE1D52, #ff2c5e);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gradient-btn:hover {
+            background: linear-gradient(135deg, #f43f5e, #fb7185);
+            box-shadow: 0 20px 60px -10px rgba(238, 29, 82, 0.4);
+            transform: scale(1.05);
+        }
+        .feature-pill {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .feature-pill:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .highlight-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .highlight-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.12);
+        }
+        .perm-tag {
+            transition: all 0.2s ease;
+        }
+        .perm-tag:hover {
+            transform: translateY(-1px);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.07; }
+            50% { opacity: 0.12; }
+        }
+        .glow-orb { animation: pulse-glow 4s ease-in-out infinite; }
+        .glow-orb-delay { animation: pulse-glow 4s ease-in-out infinite; animation-delay: 1s; }
+        .glow-orb-delay2 { animation: pulse-glow 4s ease-in-out infinite; animation-delay: 2s; }
+        .logo-float { animation: float 6s ease-in-out infinite; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .animate-delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .animate-delay-3 { animation-delay: 0.6s; opacity: 0; }
+        .animate-delay-4 { animation-delay: 0.8s; opacity: 0; }
+        .animate-delay-5 { animation-delay: 1.0s; opacity: 0; }
+        .animate-delay-6 { animation-delay: 1.2s; opacity: 0; }
+        .animate-delay-7 { animation-delay: 1.4s; opacity: 0; }
+        .animate-delay-8 { animation-delay: 1.6s; opacity: 0; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Animated background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-[600px] h-[600px] bg-pink-600 rounded-full blur-[150px] glow-orb"></div>
+        <div class="absolute -bottom-40 -right-40 w-[600px] h-[600px] bg-teal-400 rounded-full blur-[150px] glow-orb-delay"></div>
+        <div class="absolute top-[40%] left-[50%] w-[400px] h-[400px] bg-purple-500 rounded-full blur-[120px] glow-orb-delay2"></div>
+        <!-- Grid overlay -->
+        <div class="absolute inset-0" style="background: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 flex flex-col items-center justify-center text-center px-6 py-16 relative z-10">
+        <div class="max-w-2xl w-full">
+
+            <!-- Logo -->
+            <div class="mb-8 animate-fade-in animate-delay-1">
+                <div class="w-24 h-24 mx-auto bg-gradient-to-br from-pink-500 via-pink-600 to-rose-700 rounded-3xl flex items-center justify-center shadow-2xl shadow-pink-500/30 logo-float relative">
+                    <i class="fas fa-wand-magic-sparkles text-3xl text-white"></i>
+                    <div class="absolute -inset-1 bg-gradient-to-br from-pink-500 to-teal-400 rounded-3xl opacity-20 blur-md -z-10"></div>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-6xl sm:text-7xl font-extrabold mb-4 animate-fade-in animate-delay-2">
+                <span class="gradient-text-hero">ClipFlow</span><br>
+                <span class="text-white">Studio</span>
+            </h1>
+
+            <p class="text-gray-400 text-lg sm:text-xl mb-10 max-w-md mx-auto animate-fade-in animate-delay-3">
+                Automated TikTok content scheduling &amp; publishing
+            </p>
+
+            <!-- Feature pills -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10 animate-fade-in animate-delay-4">
+                <span class="feature-pill px-5 py-2.5 rounded-full text-sm text-gray-300 cursor-default flex items-center gap-2">
+                    <i class="fas fa-calendar-check text-teal-400"></i> Schedule Posts
+                </span>
+                <span class="feature-pill px-5 py-2.5 rounded-full text-sm text-gray-300 cursor-default flex items-center gap-2">
+                    <i class="fas fa-chart-line text-pink-500"></i> Track Analytics
+                </span>
+                <span class="feature-pill px-5 py-2.5 rounded-full text-sm text-gray-300 cursor-default flex items-center gap-2">
+                    <i class="fas fa-upload text-purple-400"></i> Auto-Upload
+                </span>
+            </div>
+
+            <!-- Login button -->
+            <div class="animate-fade-in animate-delay-5">
+                <a href="dashboard.html" class="group inline-flex items-center gap-3 px-10 py-4 gradient-btn text-white font-semibold text-lg rounded-full shadow-xl shadow-pink-500/25">
+                    <i class="fab fa-tiktok text-2xl"></i>
+                    <span>Log in with TikTok</span>
+                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-300 ml-1"></i>
+                </a>
+            </div>
+
+            <p class="mt-6 text-gray-600 text-xs animate-fade-in animate-delay-6">
+                By continuing, you agree to our
+                <a href="terms.html" class="text-gray-400 hover:text-pink-400 underline underline-offset-2 transition-colors">Terms</a> and
+                <a href="privacy.html" class="text-gray-400 hover:text-pink-400 underline underline-offset-2 transition-colors">Privacy Policy</a>
+            </p>
+
+            <!-- Highlights -->
+            <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in animate-delay-7">
+                <div class="highlight-card p-5 rounded-2xl group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-teal-400/20 flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform">
+                        <i class="fas fa-bolt text-pink-400"></i>
+                    </div>
+                    <h3 class="text-sm font-semibold text-gray-200 mb-1">Lightning Fast</h3>
+                    <p class="text-xs text-gray-500">Schedule & publish in seconds</p>
+                </div>
+                <div class="highlight-card p-5 rounded-2xl group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-teal-400/20 flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-halved text-pink-400"></i>
+                    </div>
+                    <h3 class="text-sm font-semibold text-gray-200 mb-1">Secure OAuth</h3>
+                    <p class="text-xs text-gray-500">TikTok official API only</p>
+                </div>
+                <div class="highlight-card p-5 rounded-2xl group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-teal-400/20 flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform">
+                        <i class="fas fa-globe text-pink-400"></i>
+                    </div>
+                    <h3 class="text-sm font-semibold text-gray-200 mb-1">Global Reach</h3>
+                    <p class="text-xs text-gray-500">Post at the perfect time</p>
+                </div>
+            </div>
+
+            <!-- Permission notice -->
+            <div class="mt-10 p-5 bg-white/[0.02] border border-white/[0.05] rounded-2xl text-left animate-fade-in animate-delay-8">
+                <p class="text-xs text-gray-500 mb-3 font-semibold uppercase tracking-widest">Requested Permissions</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="perm-tag px-3 py-1.5 bg-pink-500/10 border border-pink-500/20 rounded-lg text-xs text-pink-300 font-mono">user.info.basic</span>
+                    <span class="perm-tag px-3 py-1.5 bg-pink-500/10 border border-pink-500/20 rounded-lg text-xs text-pink-300 font-mono">user.info.profile</span>
+                    <span class="perm-tag px-3 py-1.5 bg-pink-500/10 border border-pink-500/20 rounded-lg text-xs text-pink-300 font-mono">user.info.stats</span>
+                    <span class="perm-tag px-3 py-1.5 bg-teal-400/10 border border-teal-400/20 rounded-lg text-xs text-teal-300 font-mono">video.upload</span>
+                    <span class="perm-tag px-3 py-1.5 bg-teal-400/10 border border-teal-400/20 rounded-lg text-xs text-teal-300 font-mono">video.list</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 text-center py-8 text-gray-600 text-xs">
+        <div class="flex items-center justify-center gap-4 mb-2">
+            <a href="terms.html" class="hover:text-gray-400 transition-colors">Terms of Service</a>
+            <span class="text-gray-800">·</span>
+            <a href="privacy.html" class="hover:text-gray-400 transition-colors">Privacy Policy</a>
+        </div>
+        <p>&copy; 2026 ClipFlow Studio. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
