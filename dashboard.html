@@ -1,0 +1,360 @@
+     1|<!DOCTYPE html>
+     2|<html lang="en">
+     3|<head>
+     4|    <meta charset="UTF-8">
+     5|    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6|    <title>ClipFlow Studio - Dashboard</title>
+     7|    <script src="https://cdn.tailwindcss.com"></script>
+     8|    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+     9|    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    10|    <style>
+    11|        * { font-family: 'Poppins', sans-serif; }
+    12|        body { background: #010101; color: #fff; }
+    13|        .gradient-text { background: linear-gradient(135deg, #EE1D52, #69C9D0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    14|        .gradient-btn { background: linear-gradient(135deg, #EE1D52, #ff2c5e); }
+    15|        .card { background: #111; border: 1px solid #222; border-radius: 16px; }
+    16|        .stat-card { background: linear-gradient(135deg, #111 0%, #1a0a1a 100%); border: 1px solid #222; }
+    17|        .tiktok-pink { color: #EE1D52; }
+    18|        .tiktok-teal { color: #69C9D0; }
+    19|        .glass { backdrop-filter: blur(10px); background: rgba(17,17,17,0.8); }
+    20|    </style>
+    21|</head>
+    22|<body>
+    23|
+    24|<!-- LOGIN SCREEN -->
+    25|<div id="loginScreen" class="min-h-screen flex flex-col items-center justify-center text-center px-6">
+    26|    <!-- Decorative bg -->
+    27|    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    28|        <div class="absolute -top-40 -left-40 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl"></div>
+    29|        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl"></div>
+    30|    </div>
+    31|
+    32|    <div class="relative z-10 max-w-lg w-full">
+    33|        <!-- Logo -->
+    34|        <div class="mb-6">
+    35|            <div class="w-20 h-20 mx-auto bg-gradient-to-br from-pink-500 to-pink-700 rounded-2xl flex items-center justify-center shadow-2xl shadow-pink-500/20">
+    36|                <i class="fas fa-robot text-3xl text-white"></i>
+    37|            </div>
+    38|        </div>
+    39|        <h1 class="text-5xl font-extrabold gradient-text mb-2">ClipFlow Studio</h1>
+    40|        <p class="text-gray-400 text-lg mb-10">Automated TikTok content scheduling & publishing</p>
+    41|
+    42|        <!-- Feature pills -->
+    43|        <div class="flex flex-wrap justify-center gap-3 mb-10">
+    44|            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300"><i class="fas fa-calendar-check tiktok-teal mr-2"></i>Schedule Posts</span>
+    45|            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300"><i class="fas fa-chart-line tiktok-pink mr-2"></i>Track Analytics</span>
+    46|            <span class="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300"><i class="fas fa-upload mr-2"></i>Auto-Upload</span>
+    47|        </div>
+    48|
+    49|        <!-- Login Button -->
+    50|        <button onclick="handleLogin()" class="group relative inline-flex items-center gap-3 px-10 py-4 gradient-btn text-white font-semibold text-lg rounded-full hover:scale-105 transition-all duration-300 shadow-xl shadow-pink-500/25">
+    51|            <i class="fab fa-tiktok text-2xl"></i>
+    52|            <span>Log in with TikTok</span>
+    53|            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform ml-2"></i>
+    54|        </button>
+    55|
+    56|        <p class="mt-6 text-gray-600 text-xs">
+    57|            By continuing, you agree to our <a href="terms.html" class="text-gray-400 hover:text-pink-500 underline">Terms</a> and <a href="privacy.html" class="text-gray-400 hover:text-pink-500 underline">Privacy Policy</a>
+    58|        </p>
+    59|
+    60|        <!-- Permission notice -->
+    61|        <div class="mt-8 p-4 bg-white/3 border border-white/5 rounded-xl text-left">
+    62|            <p class="text-xs text-gray-500 mb-2 font-semibold uppercase tracking-wider">Requested Permissions</p>
+    63|            <div class="flex flex-wrap gap-2">
+    64|                <span class="px-2 py-1 bg-pink-500/10 border border-pink-500/20 rounded text-xs text-pink-300">user.info.basic</span>
+    65|                <span class="px-2 py-1 bg-pink-500/10 border border-pink-500/20 rounded text-xs text-pink-300">user.info.profile</span>
+    66|                <span class="px-2 py-1 bg-pink-500/10 border border-pink-500/20 rounded text-xs text-pink-300">user.info.stats</span>
+    67|                <span class="px-2 py-1 bg-teal-400/10 border border-teal-400/20 rounded text-xs text-teal-300">video.upload</span>
+    68|                <span class="px-2 py-1 bg-teal-400/10 border border-teal-400/20 rounded text-xs text-teal-300">video.list</span>
+    69|            </div>
+    70|        </div>
+    71|    </div>
+    72|</div>
+    73|
+    74|<!-- DASHBOARD (hidden by default) -->
+    75|<div id="dashboard" class="min-h-screen hidden">
+    76|    <!-- Top Nav -->
+    77|    <nav class="glass sticky top-0 z-50 border-b border-white/5 px-6 py-4">
+    78|        <div class="max-w-7xl mx-auto flex items-center justify-between">
+    79|            <div class="flex items-center gap-3">
+    80|                <div class="w-9 h-9 bg-gradient-to-br from-pink-500 to-pink-700 rounded-xl flex items-center justify-center">
+    81|                    <i class="fas fa-robot text-white text-sm"></i>
+    82|                </div>
+    83|                <span class="font-bold text-lg gradient-text">ClipFlow Studio</span>
+    84|            </div>
+    85|            <div class="flex items-center gap-4">
+    86|                <span class="text-sm text-gray-400 hidden sm:inline" id="navCredits">Credits: 150</span>
+    87|                <div class="flex items-center gap-3" id="userBadge">
+    88|                    <img id="userAvatar" src="https://i.pravatar.cc/40?img=68" class="w-8 h-8 rounded-full border-2 border-pink-500/50" alt="avatar">
+    89|                    <span id="userName" class="text-sm font-medium text-gray-200 hidden sm:inline">@creator</span>
+    90|                </div>
+    91|            </div>
+    92|        </div>
+    93|    </nav>
+    94|
+    95|    <div class="max-w-7xl mx-auto px-6 py-8">
+    96|        <!-- Welcome + Stats Row -->
+    97|        <div class="mb-8">
+    98|            <h2 class="text-2xl font-bold mb-1">Welcome back, <span class="gradient-text" id="dashName">Creator</span> 👋</h2>
+    99|            <p class="text-gray-500 text-sm">Here's your content overview</p>
+   100|        </div>
+   101|
+   102|        <!-- Stats Grid -->
+   103|        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+   104|            <div class="stat-card rounded-2xl p-5">
+   105|                <div class="flex items-center justify-between mb-3">
+   106|                    <span class="text-gray-500 text-xs uppercase tracking-wider">Followers</span>
+   107|                    <i class="fas fa-users tiktok-pink text-lg"></i>
+   108|                </div>
+   109|                <div class="text-2xl font-bold" id="statFollowers">24.8K</div>
+   110|                <div class="text-xs text-green-400 mt-1"><i class="fas fa-arrow-up mr-1"></i>+12% this month</div>
+   111|            </div>
+   112|            <div class="stat-card rounded-2xl p-5">
+   113|                <div class="flex items-center justify-between mb-3">
+   114|                    <span class="text-gray-500 text-xs uppercase tracking-wider">Following</span>
+   115|                    <i class="fas fa-user-plus tiktok-teal text-lg"></i>
+   116|                </div>
+   117|                <div class="text-2xl font-bold" id="statFollowing">342</div>
+   118|                <div class="text-xs text-gray-500 mt-1">Accounts</div>
+   119|            </div>
+   120|            <div class="stat-card rounded-2xl p-5">
+   121|                <div class="flex items-center justify-between mb-3">
+   122|                    <span class="text-gray-500 text-xs uppercase tracking-wider">Likes</span>
+   123|                    <i class="fas fa-heart tiktok-pink text-lg"></i>
+   124|                </div>
+   125|                <div class="text-2xl font-bold" id="statLikes">892.1K</div>
+   126|                <div class="text-xs text-green-400 mt-1"><i class="fas fa-arrow-up mr-1"></i>+8% this month</div>
+   127|            </div>
+   128|            <div class="stat-card rounded-2xl p-5">
+   129|                <div class="flex items-center justify-between mb-3">
+   130|                    <span class="text-gray-500 text-xs uppercase tracking-wider">Videos</span>
+   131|                    <i class="fas fa-video tiktok-teal text-lg"></i>
+   132|                </div>
+   133|                <div class="text-2xl font-bold" id="statVideos">156</div>
+   134|                <div class="text-xs text-gray-500 mt-1">Published</div>
+   135|            </div>
+   136|        </div>
+   137|
+   138|        <!-- Main Content Grid -->
+   139|        <div class="grid lg:grid-cols-3 gap-6">
+   140|            <!-- Profile Card -->
+   141|            <div class="card p-6 lg:col-span-1">
+   142|                <h3 class="font-semibold text-sm text-gray-400 uppercase tracking-wider mb-4">Profile</h3>
+   143|                <div class="flex flex-col items-center text-center mb-4">
+   144|                    <img id="profileAvatar" src="https://i.pravatar.cc/100?img=68" class="w-20 h-20 rounded-full border-3 border-pink-500/30 mb-3" alt="avatar">
+   145|                    <h4 class="font-bold text-lg" id="profileName">@CreativeCreator</h4>
+   146|                    <p class="text-gray-500 text-sm" id="profileBio">Content creator | Tech & Lifestyle 🚀</p>
+   147|                    <a href="#" class="text-xs tiktok-teal mt-1 hover:underline" id="profileLink">tiktok.com/@creativecreator</a>
+   148|                </div>
+   149|                <div class="border-t border-white/5 pt-4 space-y-2">
+   150|                    <div class="flex justify-between text-sm">
+   151|                        <span class="text-gray-500">Account ID</span>
+   152|                        <span class="text-gray-300 font-mono text-xs" id="profileId">tiktok_abc123xyz</span>
+   153|                    </div>
+   154|                    <div class="flex justify-between text-sm">
+   155|                        <span class="text-gray-500">Verified</span>
+   156|                        <span class="text-green-400"><i class="fas fa-check-circle mr-1"></i>Yes</span>
+   157|                    </div>
+   158|                </div>
+   159|            </div>
+   160|
+   161|            <!-- Video List -->
+   162|            <div class="card p-6 lg:col-span-2">
+   163|                <div class="flex items-center justify-between mb-4">
+   164|                    <h3 class="font-semibold text-sm text-gray-400 uppercase tracking-wider">Recent Videos</h3>
+   165|                    <span class="text-xs text-gray-500" id="videoCount">5 of 156</span>
+   166|                </div>
+   167|                <div class="space-y-3" id="videoList">
+   168|                    <!-- Populated by JS -->
+   169|                </div>
+   170|            </div>
+   171|        </div>
+   172|
+   173|        <!-- Upload Section -->
+   174|        <div class="card p-6 mt-6">
+   175|            <div class="flex items-center justify-between mb-6">
+   176|                <div>
+   177|                    <h3 class="font-semibold text-sm text-gray-400 uppercase tracking-wider">Schedule Upload</h3>
+   178|                    <p class="text-xs text-gray-600 mt-1">Video will be uploaded as a draft for review</p>
+   179|                </div>
+   180|                <span class="px-3 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-full text-xs text-yellow-400"><i class="fas fa-pencil-alt mr-1"></i>Draft Mode</span>
+   181|            </div>
+   182|            <div class="grid md:grid-cols-2 gap-6">
+   183|                <!-- Upload form -->
+   184|                <div>
+   185|                    <div id="dropZone" class="border-2 border-dashed border-white/10 rounded-2xl p-10 text-center cursor-pointer hover:border-pink-500/50 transition-all duration-300" onclick="simulateFileSelect()">
+   186|                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-600 mb-3"></i>
+   187|                        <p class="text-gray-400 font-medium">Drop video or click to browse</p>
+   188|                        <p class="text-gray-600 text-xs mt-1">MP4, MOV up to 500MB</p>
+   189|                        <input type="file" id="fileInput" accept="video/*" class="hidden" onchange="handleFileSelect(event)">
+   190|                    </div>
+   191|                    <div class="mt-4 space-y-3">
+   192|                        <input type="text" id="videoCaption" placeholder="Write a caption..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-pink-500/50 transition-all">
+   193|                        <div class="flex gap-3">
+   194|                            <select id="privacyLevel" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-gray-300 focus:outline-none focus:border-pink-500/50">
+   195|                                <option value="draft">Upload as Draft</option>
+   196|                                <option value="direct">Direct Post</option>
+   197|                            </select>
+   198|                        </div>
+   199|                        <button onclick="handleUpload()" class="w-full gradient-btn text-white font-semibold py-3 rounded-xl hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
+   200|                            <i class="fas fa-upload"></i> Upload to TikTok
+   201|                        </button>
+   202|                    </div>
+   203|                </div>
+   204|                <!-- Upload preview -->
+   205|                <div id="uploadPreview" class="flex items-center justify-center border border-white/5 rounded-2xl bg-white/[0.02] min-h-[250px]">
+   206|                    <div class="text-center text-gray-600">
+   207|                        <i class="fas fa-video text-5xl mb-3"></i>
+   208|                        <p class="text-sm">Video preview</p>
+   209|                    </div>
+   210|                </div>
+   211|            </div>
+   212|        </div>
+   213|
+   214|        <!-- Footer -->
+   215|        <div class="mt-12 text-center text-gray-700 text-xs pb-8">
+   216|            <a href="terms.html" class="hover:text-gray-400 mx-2">Terms of Service</a> ·
+   217|            <a href="privacy.html" class="hover:text-gray-400 mx-2">Privacy Policy</a> ·
+   218|            <span class="mx-2">&copy; 2026 ClipFlow Studio</span>
+   219|        </div>
+   220|    </div>
+   221|</div>
+   222|
+   223|<script>
+   224|// ---- MOCK DATA ----
+   225|const mockVideos = [
+   226|    { id: 'v1', title: 'Morning routine hack 🤯', thumbnail: 'https://picsum.photos/seed/v1/320/400', views: '124.5K', likes: '8.2K', status: 'published', date: '2026-05-08' },
+   227|    { id: 'v2', title: 'Budget tech finds under $50', thumbnail: 'https://picsum.photos/seed/v2/320/400', views: '89.1K', likes: '5.4K', status: 'published', date: '2026-05-06' },
+   228|    { id: 'v3', title: 'Productivity tips that work', thumbnail: 'https://picsum.photos/seed/v3/320/400', views: '256.3K', likes: '18.9K', status: 'published', date: '2026-05-04' },
+   229|    { id: 'v4', title: 'Desk setup transformation', thumbnail: 'https://picsum.photos/seed/v4/320/400', views: '41.2K', likes: '3.1K', status: 'draft', date: '2026-05-09' },
+   230|    { id: 'v5', title: 'Coding ASMR ✨', thumbnail: 'https://picsum.photos/seed/v5/320/400', views: '0', likes: '0', status: 'draft', date: '2026-05-09' },
+   231|];
+   232|
+   233|// ---- LOGIN FLOW ----
+   234|function handleLogin() {
+   235|    // Simulate TikTok OAuth popup
+   236|    const popup = window.open('about:blank', 'tiktok_auth', 'width=500,height=650');
+   237|    popup.document.write(`
+   238|        <html>
+   239|        <head><title>TikTok Authorization</title>
+   240|        <style>
+   241|            * { font-family: -apple-system, sans-serif; }
+   242|            body { background:#111; color:#fff; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; flex-direction:column; gap:20px; }
+   243|            .logo { font-size:40px; background: linear-gradient(135deg, #EE1D52, #69C9D0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight:800; }
+   244|            .card { background:#1a1a1a; border:1px solid #333; border-radius:16px; padding:24px; width:320px; }
+   245|            .btn { width:100%; padding:12px; border:none; border-radius:12px; font-size:16px; font-weight:600; cursor:pointer; margin-top:12px; }
+   246|            .btn-allow { background: linear-gradient(135deg, #EE1D52, #ff2c5e); color:#fff; }
+   247|            .btn-cancel { background: #333; color:#999; }
+   248|            .scope { font-size:12px; color:#888; padding:4px 0; }
+   249|        </style></head>
+   250|        <body>
+   251|            <div class="logo">TikTok</div>
+   252|            <div class="card">
+   253|                <p style="font-size:14px;color:#ccc;margin-bottom:12px;"><strong>ClipFlow Studio</strong> would like to:</p>
+   254|                <div class="scope">✓ Read your profile info</div>
+   255|                <div class="scope">✓ Read follower/following counts</div>
+   256|                <div class="scope">✓ Read your public videos</div>
+   257|                <div class="scope">✓ Upload videos as drafts</div>
+   258|                <button class="btn btn-allow" onclick="window.opener.onAuthSuccess();window.close();">Allow</button>
+   259|                <button class="btn btn-cancel" onclick="window.close();">Cancel</button>
+   260|            </div>
+   261|        </body></html>
+   262|    `);
+   263|}
+   264|
+   265|// ---- CALLBACK ----
+   266|function onAuthSuccess() {
+   267|    document.getElementById('loginScreen').style.display = 'none';
+   268|    document.getElementById('dashboard').classList.remove('hidden');
+   269|    renderVideos();
+   270|}
+   271|
+   272|// ---- RENDER VIDEOS ----
+   273|function renderVideos() {
+   274|    const container = document.getElementById('videoList');
+   275|    container.innerHTML = mockVideos.map(v => `
+   276|        <div class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/[0.03] transition-all group">
+   277|            <div class="w-14 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-white/5">
+   278|                <img src="${v.thumbnail}" class="w-full h-full object-cover" alt="${v.title}" loading="lazy">
+   279|            </div>
+   280|            <div class="flex-1 min-w-0">
+   281|                <p class="text-sm font-medium text-gray-200 truncate">${v.title}</p>
+   282|                <div class="flex items-center gap-3 mt-1">
+   283|                    <span class="text-xs text-gray-500"><i class="fas fa-eye mr-1"></i>${v.views}</span>
+   284|                    <span class="text-xs text-gray-500"><i class="fas fa-heart mr-1 text-pink-500/70"></i>${v.likes}</span>
+   285|                    <span class="text-xs text-gray-600">${v.date}</span>
+   286|                </div>
+   287|            </div>
+   288|            <span class="text-xs px-2 py-1 rounded-full ${v.status === 'published' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20'}">${v.status}</span>
+   289|        </div>
+   290|    `).join('');
+   291|}
+   292|
+   293|// ---- UPLOAD HANDLERS ----
+   294|function simulateFileSelect() {
+   295|    document.getElementById('fileInput').click();
+   296|}
+   297|
+   298|function handleFileSelect(event) {
+   299|    const file = event.target.files[0];
+   300|    if (!file) return;
+   301|    const preview = document.getElementById('uploadPreview');
+   302|    preview.innerHTML = `
+   303|        <div class="text-center p-6">
+   304|            <i class="fas fa-file-video text-4xl tiktok-pink mb-3"></i>
+   305|            <p class="text-sm font-medium text-gray-200">${file.name}</p>
+   306|            <p class="text-xs text-gray-500 mt-1">${(file.size / (1024*1024)).toFixed(1)} MB · Ready to upload</p>
+   307|            <div class="mt-3 flex items-center justify-center gap-2 text-xs text-gray-500">
+   308|                <span class="px-2 py-1 bg-white/5 rounded">video.upload</span>
+   309|                <i class="fas fa-arrow-right text-gray-700"></i>
+   310|                <span class="px-2 py-1 bg-yellow-500/10 rounded text-yellow-400">Draft</span>
+   311|            </div>
+   312|        </div>
+   313|    `;
+   314|}
+   315|
+   316|function handleUpload() {
+   317|    const caption = document.getElementById('videoCaption').value || 'New video from ClipFlow Studio 🚀';
+   318|    const fileInput = document.getElementById('fileInput');
+   319|    const privacy = document.getElementById('privacyLevel').value;
+   320|    const hasFile = fileInput.files.length > 0;
+   321|
+   322|    if (!hasFile && privacy === 'direct') {
+   323|        alert('Please select a video file first.');
+   324|        return;
+   325|    }
+   326|
+   327|    // Simulate upload
+   328|    const btn = event.target;
+   329|    btn.disabled = true;
+   330|    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+   331|
+   332|    setTimeout(() => {
+   333|        const newVideo = {
+   334|            id: 'v' + Date.now(),
+   335|            title: caption.substring(0, 40),
+   336|            thumbnail: 'https://picsum.photos/seed/new/320/400',
+   337|            views: '0',
+   338|            likes: '0',
+   339|            status: privacy === 'direct' ? 'published' : 'draft',
+   340|            date: new Date().toISOString().split('T')[0]
+   341|        };
+   342|        mockVideos.unshift(newVideo);
+   343|        renderVideos();
+   344|        document.getElementById('videoCount').textContent = mockVideos.length + ' of 156';
+   345|        document.getElementById('uploadPreview').innerHTML = `
+   346|            <div class="text-center p-6">
+   347|                <i class="fas fa-check-circle text-4xl text-green-400 mb-3"></i>
+   348|                <p class="text-sm font-medium text-green-400">Upload successful!</p>
+   349|                <p class="text-xs text-gray-500 mt-1">${privacy === 'direct' ? 'Posted directly' : 'Saved as draft'} · ${newVideo.date}</p>
+   350|            </div>
+   351|        `;
+   352|        btn.disabled = false;
+   353|        btn.innerHTML = '<i class="fas fa-upload"></i> Upload to TikTok';
+   354|    }, 2000);
+   355|}
+   356|</script>
+   357|
+   358|</body>
+   359|</html>
+   360|
